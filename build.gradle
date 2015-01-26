@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'maven-publish'
+
+
+sourceCompatibility = 1.5
+version = '0.11'
+mainClassName = "me.bahadir.gimsearch.Main"
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.jsoup:jsoup:1.8.1'
+
+}
+
+test {
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+    maxParallelForks = Runtime.runtime.availableProcessors()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'me.bahadir'
+            artifactId 'gimsearch'
+            version project.version
+
+            from components.java
+        }
+    }
+}
